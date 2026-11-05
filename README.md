@@ -10,7 +10,7 @@ Mac のホームフォルダを「用途 → 種類 → git 管理の有無」�
 - **folder-style**: Finder のカラータグと、絵文字付きのフォルダアイコンを付けます
 - **PROMPT.md**: Claude Code や Codex に、フォルダの整理そのものを頼むためのプロンプトです
 - **rewrite-agent-paths.py**: フォルダを移動したあと、Claude Code と Codex の会話履歴に残る古いパスを書き換えます
-- **SETUP-AUTOSORT.md**: AI がユーザーに範囲とルールを確認しながら auto-sort を設定するための手順書です
+- **SETUP-AUTOSORT.md**: AI がユーザーに確認しながら、整理・自動振り分け・色とアイコン・毎朝の仕分けをまとめて設定するための手順書です
 - **DAILY-SORT.md**: 毎朝、AI が `Documents/Files` の書類を中身を読んで仕分けるための手順書です
 
 ## 必要な環境
@@ -28,7 +28,8 @@ Codex や Claude Code に、次のように頼むだけで使えます。
 | やりたいこと | 頼み方 |
 |---|---|
 | フォルダを丸ごと整理する | `https://github.com/yuuyuu86/mac-tidy の PROMPT.md のとおりに整理して` |
-| 自動振り分けを、範囲を相談しながら設定する | `https://github.com/yuuyuu86/mac-tidy の SETUP-AUTOSORT.md のとおりに自動振り分けを設定して` |
+| **全部まとめて**設定する(おすすめ) | `https://github.com/yuuyuu86/mac-tidy の SETUP-AUTOSORT.md のとおりにセットアップして` |
+| 自動振り分けだけを、範囲を相談しながら設定する | `https://github.com/yuuyuu86/mac-tidy の SETUP-AUTOSORT.md の B だけやって` |
 | 毎朝の書類仕分けを設定する | `https://github.com/yuuyuu86/mac-tidy の DAILY-SORT.md のセットアップをやって` |
 
 毎朝の仕分けでは、書類の中身が AI のサービスに送られます。機密書類を扱う場合は、セットアップのときに仕事のフォルダを仕分け先から外してください。
@@ -149,7 +150,7 @@ Obsidian の Vault や Processing など、アプリが場所を決めて使う�
 - `.` で始まる隠しファイルと `desktop.ini`
 - 上の表に当てはまらない拡張子(`.txt` `.md` `.json` `.py` `.html` `.exe` など)。Downloads にそのまま残ります
 
-ルールを変えるときは、`auto-sort.sh` の `dest()` を編集してください。範囲やルールを AI に聞かれながら決めたい場合は、[SETUP-AUTOSORT.md](SETUP-AUTOSORT.md) を使ってください。
+ルールを変えるときは、`auto-sort.sh` の `dest()` を編集してください。範囲やルールを AI に聞かれながら決めたい場合は、[SETUP-AUTOSORT.md](SETUP-AUTOSORT.md) の「B. 自動振り分け」を使ってください。
 
 ### インストール
 
