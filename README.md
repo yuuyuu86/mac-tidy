@@ -21,6 +21,66 @@ Mac のホームフォルダを「用途 → 種類 → git 管理の有無」�
 └── _不要候補/                      削除するか本人が決めるもの
 ```
 
+### 各フォルダに入るもの
+
+#### Dev(開発)
+| フォルダ | 入るもの |
+|---|---|
+| `Apps/<種類>/git/` | git で管理している自作アプリ。種類は iOS-macOS、Web、Flutter、Unity、Python-AI、IoT などで、中身のプロジェクトファイルから判断する |
+| `Apps/<種類>/local/` | git で管理していない自作アプリ |
+| `Apps/Unity/builds/` | Unity の WebGL などの書き出し結果 |
+| `Portfolio/` | ポートフォリオサイト、GitHub のプロフィール用リポジトリ |
+| `School/` | 授業の課題や演習のコード |
+| `Contests/` | コンテストの企画資料と作品 |
+| `Clones/` | 他人のリポジトリを clone したもの |
+| `Sandbox/` | 試作や、中身がはっきりしないもの |
+
+#### Work(仕事・チーム開発)
+| フォルダ | 入るもの |
+|---|---|
+| `<クライアント>/` | リポジトリと、関連する worktree |
+| `<クライアント>/assets/` | ロゴ、画像、動画などの素材 |
+| `<クライアント>/docs/` | 契約書、名簿、仕様書などの書類 |
+
+git の有無では分けません(チーム開発はほぼすべて git で管理しているため)。
+
+#### Assets(コード以外の素材)
+| フォルダ | 入るもの | auto-sort の対象 |
+|---|---|---|
+| `Images/` | png、jpg、heic、gif、webp | ✓ |
+| `Images/Wallpapers/` | 壁紙 | 手で分ける |
+| `Videos/` | mp4、mov、webm、mkv | ✓ |
+| `Audio/` | mp3、wav、m4a、aac | ✓ |
+| `Design/` | ai、psd、svg、fig、sketch | ✓ |
+| `Screenshots/` | スクリーンショット、画面収録、シミュレータのスクショ | ✓(Desktop も対象) |
+| `3DPrint/` | 3mf、stl、gcode | ✓ |
+
+#### Documents(書類)
+| フォルダ | 入るもの | auto-sort の対象 |
+|---|---|---|
+| `Files/` | pdf、docx、xlsx、pptx、csv、key、pages、numbers | ✓ |
+| `Notes/` | md、txt のメモ | 手で分ける |
+| `School/` | 学校の資料(時間割、申込書、入試書類など) | 手で分ける |
+
+Obsidian の Vault や Processing など、アプリが場所を決めて使うフォルダは動かさずにそのまま残します。
+
+> auto-sort は拡張子だけで行き先を決めるので、授業のプリントのような PDF も `Files/` に入ります。`School/` に入れたい場合は、`auto-sort.sh` の `dest()` に名前で判断するルール(例: `*ワークシート*|*授業*) echo $H/Documents/School;;`)を、拡張子のルールより上に追加してください。
+
+#### Secrets(鍵・証明書)
+| 入るもの | auto-sort の対象 |
+|---|---|
+| `.p8`(App Store Connect API キー)、`.jks` / `.keystore`(Android の署名鍵)、`.cer` / `.p12` / `.mobileprovision`、リカバリーコード | ✓ |
+
+フォルダの権限は `chmod 700` にして、自分だけが開けるようにします。鍵を絶対パスで参照している設定(Android の `key.properties` など)は、移動したあとにパスを直してください。
+
+#### Downloads
+| フォルダ | 入るもの |
+|---|---|
+| `Installers/` | dmg、pkg、iso |
+| `Archives/` | zip、tar.gz、7z、rar |
+
+振り分けのルールに当てはまらないファイルは、そのまま Downloads に残ります。
+
 ## auto-sort のしくみ
 
 1. launchd が `~/Downloads` と `~/Desktop` の変化を監視します。念のため 60 秒ごとにも起動します。
