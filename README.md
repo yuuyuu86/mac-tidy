@@ -6,6 +6,18 @@ Mac のホームフォルダを「用途 → 種類 → git 管理の有無」�
 - **folder-style**: Finder のカラータグと、絵文字付きのフォルダアイコンを付けます
 - **PROMPT.md**: Claude Code や Codex に、フォルダの整理そのものを頼むためのプロンプトです
 - **rewrite-agent-paths.py**: フォルダを移動したあと、Claude Code と Codex の会話履歴に残る古いパスを書き換えます
+- **DAILY-SORT.md**: 毎朝、AI が `Documents/Files` の書類を中身を読んで仕分けるための手順書です
+
+## AI に頼むだけで使う
+
+Codex や Claude Code に、次のように頼むだけで使えます。
+
+| やりたいこと | 頼み方 |
+|---|---|
+| フォルダを丸ごと整理する | `https://github.com/yuuyuu86/mac-tidy の PROMPT.md のとおりに整理して` |
+| 毎朝の書類仕分けを設定する | `https://github.com/yuuyuu86/mac-tidy の DAILY-SORT.md のセットアップをやって` |
+
+毎朝の仕分けでは、書類の中身が AI のサービスに送られます。機密書類を扱う場合は、セットアップのときに仕事のフォルダを仕分け先から外してください。
 
 ## フォルダ構成
 
