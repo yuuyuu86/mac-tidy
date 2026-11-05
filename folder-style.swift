@@ -3,7 +3,8 @@
 import AppKit
 
 
-let H = NSHomeDirectory()
+// 引数でルートを渡すと、そのフォルダを基準に適用する(試すとき用)
+let H = CommandLine.arguments.count > 1 ? CommandLine.arguments[1] : NSHomeDirectory()
 // (パス, タグ, 絵文字)  タグ名は Finder 標準色: Red Orange Yellow Green Blue Purple Gray
 // 自分のフォルダ構成に合わせて編集する (例: ("Work/client-a", ["Orange"], "🏢"))
 let rules: [(String, [String], String)] = [

@@ -1,5 +1,9 @@
 # mac-tidy
 
+> **English:** A small toolkit to keep a Mac home folder tidy. `auto-sort` moves new files in Downloads into typed folders via launchd, `folder-style` adds Finder color tags and emoji folder icons, and `PROMPT.md` / `DAILY-SORT.md` let an AI agent (Claude Code, Codex) reorganize your folders or sort documents by content every morning. Docs are in Japanese.
+
+![Finder の表示例](docs/screenshot.png)
+
 Mac のホームフォルダを「用途 → 種類 → git 管理の有無」で整理し、その状態を保つためのツールです。
 
 - **auto-sort**: Downloads に入ったファイルを、種類ごとに自動で振り分けます(Desktop で動かすのはスクショだけ)
@@ -7,6 +11,14 @@ Mac のホームフォルダを「用途 → 種類 → git 管理の有無」�
 - **PROMPT.md**: Claude Code や Codex に、フォルダの整理そのものを頼むためのプロンプトです
 - **rewrite-agent-paths.py**: フォルダを移動したあと、Claude Code と Codex の会話履歴に残る古いパスを書き換えます
 - **DAILY-SORT.md**: 毎朝、AI が `Documents/Files` の書類を中身を読んで仕分けるための手順書です
+
+## 必要な環境
+
+- macOS 13 以降(Apple シリコン、macOS 26 で動作を確認)
+- zsh(macOS 標準のシェル)
+- `folder-style.swift` を使う場合: Xcode Command Line Tools(`xcode-select --install`)
+- `rewrite-agent-paths.py` を使う場合: Python 3(Command Line Tools に含まれる)
+- auto-sort をバックグラウンドで動かす場合: **フルディスクアクセス**に `/bin/zsh` を追加すること(下の「インストール」を参照)
 
 ## AI に頼むだけで使う
 
