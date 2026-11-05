@@ -10,6 +10,7 @@ Mac のホームフォルダを「用途 → 種類 → git 管理の有無」�
 - **folder-style**: Finder のカラータグと、絵文字付きのフォルダアイコンを付けます
 - **PROMPT.md**: Claude Code や Codex に、フォルダの整理そのものを頼むためのプロンプトです
 - **rewrite-agent-paths.py**: フォルダを移動したあと、Claude Code と Codex の会話履歴に残る古いパスを書き換えます
+- **SETUP-AUTOSORT.md**: AI がユーザーに範囲とルールを確認しながら auto-sort を設定するための手順書です
 - **DAILY-SORT.md**: 毎朝、AI が `Documents/Files` の書類を中身を読んで仕分けるための手順書です
 
 ## 必要な環境
@@ -27,6 +28,7 @@ Codex や Claude Code に、次のように頼むだけで使えます。
 | やりたいこと | 頼み方 |
 |---|---|
 | フォルダを丸ごと整理する | `https://github.com/yuuyuu86/mac-tidy の PROMPT.md のとおりに整理して` |
+| 自動振り分けを、範囲を相談しながら設定する | `https://github.com/yuuyuu86/mac-tidy の SETUP-AUTOSORT.md のとおりに自動振り分けを設定して` |
 | 毎朝の書類仕分けを設定する | `https://github.com/yuuyuu86/mac-tidy の DAILY-SORT.md のセットアップをやって` |
 
 毎朝の仕分けでは、書類の中身が AI のサービスに送られます。機密書類を扱う場合は、セットアップのときに仕事のフォルダを仕分け先から外してください。
@@ -113,6 +115,41 @@ Obsidian の Vault や Processing など、アプリが場所を決めて使う�
 4. 同じ名前のファイルがあるときは、上書きせずに ` (1)` を付けます。
 
 ファイルが振り分けられるまでの時間は、10 秒から 1 分ほどです。
+
+### 対象の範囲
+
+| 場所 | 対象 |
+|---|---|
+| `~/Downloads` | 下の表のルールに当てはまるファイルすべて |
+| `~/Desktop` | **スクリーンショットと画面収録だけ**(ほかのファイルは動かさない) |
+
+対象は、フォルダの**直下にあるファイルだけ**です。サブフォルダの中身と、フォルダそのものは動かしません。
+
+### 振り分けのルール
+
+上から順に判定し、最初に当てはまったルールの行き先に移します。拡張子の大文字と小文字は区別しません。
+
+| 条件 | 行き先 |
+|---|---|
+| `.p8` `.jks` `.keystore` `.cer` `.p12` `.mobileprovision` `.certSigningRequest`、名前に「recovery codes」を含む | `~/Secrets`(chmod 700) |
+| 名前が「スクリーンショット」「画面収録」「Screenshot」「Simulator Screenshot」「Screen Recording」で始まる | `~/Assets/Screenshots` |
+| `.png` `.jpg` `.jpeg` `.heic` `.gif` `.webp` | `~/Assets/Images` |
+| `.mp4` `.mov` `.webm` `.mkv` | `~/Assets/Videos` |
+| `.mp3` `.wav` `.m4a` `.aac` | `~/Assets/Audio` |
+| `.ai` `.psd` `.svg` `.fig` `.sketch` | `~/Assets/Design` |
+| `.3mf` `.stl` `.gcode` | `~/Assets/3DPrint` |
+| `.pdf` `.docx` `.xlsx` `.pptx` `.csv` `.key` `.pages` `.numbers` | `~/Documents/Files` |
+| `.dmg` `.pkg` `.iso` | `~/Downloads/Installers` |
+| `.zip` `.tar.gz` `.tgz` `.7z` `.rar` | `~/Downloads/Archives` |
+
+### 動かさないもの
+
+- ダウンロード中のファイル(`.crdownload` `.download` `.part` `.tmp`)
+- 最後の更新から 10 秒以内のファイル(次の確認のときに動かします)
+- `.` で始まる隠しファイルと `desktop.ini`
+- 上の表に当てはまらない拡張子(`.txt` `.md` `.json` `.py` `.html` `.exe` など)。Downloads にそのまま残ります
+
+ルールを変えるときは、`auto-sort.sh` の `dest()` を編集してください。範囲やルールを AI に聞かれながら決めたい場合は、[SETUP-AUTOSORT.md](SETUP-AUTOSORT.md) を使ってください。
 
 ### インストール
 
